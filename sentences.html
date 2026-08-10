@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>اختبار الجملة الاسمية والفعلية | المعلم موسى علي</title>
+<style>
+  :root{
+    --bg:#0f1720;
+    --card:#18222e;
+    --card2:#202d3b;
+    --text:#f5f7fa;
+    --muted:#aeb9c5;
+    --accent:#2ea36b;
+    --accent2:#d7b86a;
+    --bad:#b84d4d;
+    --good:#2e9b61;
+    --border:#314153;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:"Tahoma","Arial",sans-serif;
+    background:radial-gradient(circle at top,#1b2937 0,#0f1720 55%);
+    color:var(--text);
+    min-height:100vh;
+  }
+  .wrap{max-width:760px;margin:auto;padding:18px}
+  .brand{
+    text-align:center;
+    color:#dce7ef;
+    font-size:13px;
+    margin:8px 0 4px;
+  }
+  .teacher{
+    text-align:center;
+    font-size:30px;
+    font-weight:800;
+    color:var(--accent2);
+    margin:4px 0 18px;
+    letter-spacing:.2px;
+  }
+  .panel{
+    background:rgba(24,34,46,.95);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 14px 40px rgba(0,0,0,.25);
+  }
+  h1{font-size:34px;margin:8px 0 10px;text-align:center}
+  h2{font-size:25px;margin:0 0 12px}
+  p{line-height:1.9;color:#d7e0e8}
+  .hero-icon{font-size:56px;text-align:center;margin-top:6px}
+  .start-btn,.next-btn,.restart-btn{
+    width:100%;
+    border:none;
+    border-radius:16px;
+    padding:15px 18px;
+    font-size:18px;
+    font-weight:800;
+    cursor:pointer;
+    background:var(--accent);
+    color:white;
+    margin-top:16px;
+  }
+  .progress-shell{
+    height:12px;
+    background:#253445;
+    border-radius:20px;
+    overflow:hidden;
+    margin:10px 0 18px;
+  }
+  .progress{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--accent),#56c98f);
+    transition:.3s;
+  }
+  .meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px;margin-bottom:10px}
+  .sentence{
+    font-size:28px;
+    line-height:1.9;
+    text-align:center;
+    padding:18px 14px;
+    margin:10px 0 16px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:18px;
+  }
+  .prompt{font-size:19px;font-weight:700;margin:8px 0 12px}
+  .options{display:grid;gap:11px}
+  .opt{
+    width:100%;
+    text-align:right;
+    border:1px solid var(--border);
+    background:#223141;
+    color:var(--text);
+    border-radius:15px;
+    padding:14px 16px;
+    font-size:17px;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .opt:hover{transform:translateY(-1px);border-color:#577087}
+  .opt.good{background:#183b2b;border-color:#2f9d67}
+  .opt.bad{background:#442626;border-color:#b65353}
+  .feedback{
+    display:none;
+    margin-top:14px;
+    padding:14px 16px;
+    border-radius:15px;
+    line-height:1.8;
+    font-size:16px;
+  }
+  .feedback.good{display:block;background:#173526;border:1px solid #2b8c5d}
+  .feedback.bad{display:block;background:#3b2424;border:1px solid #9c4949}
+  .hint{color:#f1d58d;font-weight:700}
+  .result{
+    text-align:center;
+  }
+  .score{
+    font-size:54px;
+    font-weight:900;
+    color:var(--accent2);
+    margin:10px 0;
+  }
+  .bars{display:grid;gap:14px;margin-top:20px;text-align:right}
+  .metric{background:#202d3b;border-radius:14px;padding:12px 14px}
+  .metric strong{display:flex;justify-content:space-between;margin-bottom:8px}
+  .barbg{height:10px;background:#314153;border-radius:20px;overflow:hidden}
+  .bar{height:100%;background:var(--accent)}
+  .small{font-size:13px;color:var(--muted)}
+  .footer{text-align:center;color:#8fa0b1;font-size:12px;margin:16px 0 4px}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">رحلتنا نحو تعلم اللغة العربية</div>
+  <div class="teacher">المعلم موسى علي</div>
+
+  <section id="start" class="panel">
+    <div class="hero-icon">🧩</div>
+    <h1>رحلة الجمل</h1>
+    <p style="text-align:center">
+      في هذه الرحلة ستكتشف الفرق بين <b>الجملة الاسمية</b> و<b>الجملة الفعلية</b>.
+      راقب بداية الجملة جيدًا، ثم اختر الإجابة المناسبة.
+    </p>
+    <p class="small" style="text-align:center">
+      لديك محاولة ثانية إذا أخطأت، لكن علامة السؤال تُحسب على المحاولة الأولى فقط.
+    </p>
+    <button class="start-btn" onclick="startQuiz()">ابدأ الرحلة 🚀</button>
+  </section>
+
+  <section id="quiz" class="panel hidden">
+    <div class="meta">
+      <span id="qnum">التحدي 1 من 10</span>
+      <span id="scoreLive">العلامة: 0</span>
+    </div>
+    <div class="progress-shell"><div id="progress" class="progress"></div></div>
+    <h2 id="title">اكتشف نوع الجملة</h2>
+    <div id="sentence" class="sentence"></div>
+    <div id="prompt" class="prompt"></div>
+    <div id="options" class="options"></div>
+    <div id="feedback" class="feedback"></div>
+    <button id="nextBtn" class="next-btn hidden" onclick="nextQuestion()">التالي ←</button>
+  </section>
+
+  <section id="result" class="panel hidden result">
+    <div class="hero-icon">🏆</div>
+    <h1>انتهت الرحلة!</h1>
+    <div id="finalScore" class="score">0/10</div>
+    <p id="summary"></p>
+    <div id="bars" class="bars"></div>
+    <button class="restart-btn" onclick="restartQuiz()">إعادة الرحلة 🔄</button>
+  </section>
+
+  <div class="footer">إعداد: المعلم موسى علي</div>
+</div>
+
+<script>
+const questions = [
+{
+ sentence:"الْعِلْمُ نُورٌ.",
+ prompt:"ما نوع الجملة؟",
+ category:"اسمية",
+ options:["جملة اسمية","جملة فعلية"],
+ correct:0,
+ wrong:[
+  "هذه الجملة لم تبدأ بفعل. انظر إلى الكلمة الأولى: «الْعِلْمُ»، وهي اسم؛ لذلك حاول مرة أخرى."
+ ],
+ success:"أحسنت! بدأت الجملة باسم «الْعِلْمُ»، لذلك هي جملة اسمية."
+},
+{
+ sentence:"يَقْرَأُ خَالِدٌ الْقِصَّةَ.",
+ prompt:"ما نوع الجملة؟",
+ category:"فعلية",
+ options:["جملة اسمية","جملة فعلية"],
+ correct:1,
+ wrong:[
+  "وجود الاسم «خَالِدٌ» لا يجعل الجملة اسمية؛ لأننا ننظر إلى بداية الجملة. بدأت بـ«يَقْرَأُ»، وهو فعل."
+ ],
+ success:"رائع! بدأت الجملة بالفعل «يَقْرَأُ»، لذلك هي جملة فعلية."
+},
+{
+ sentence:"السَّمَاءُ صَافِيَةٌ.",
+ prompt:"ما نوع الجملة؟",
+ category:"اسمية",
+ options:["جملة اسمية","جملة فعلية"],
+ correct:0,
+ wrong:[
+  "فتش عن بداية الجملة. «السَّمَاءُ» اسم، ولم تبدأ الجملة بفعل."
+ ],
+ success:"صحيح! بدأت الجملة باسم «السَّمَاءُ»، فهي جملة اسمية."
+},
+{
+ sentence:"كَتَبَ الطَّالِبُ الْوَاجِبَ.",
+ prompt:"ما نوع الجملة؟",
+ category:"فعلية",
+ options:["جملة اسمية","جملة فعلية"],
+ correct:1,
+ wrong:[
+  "انتبه إلى الكلمة الأولى: «كَتَبَ» تدل على حدث وقع في الزمن الماضي، فهي فعل، ولذلك الجملة فعلية."
+ ],
+ success:"أحسنت! «كَتَبَ» فعل ماضٍ، والجملة التي تبدأ بفعل جملة فعلية."
+},
+{
+ sentence:"الْعُصْفُورُ يُغَرِّدُ.",
+ prompt:"ما نوع الجملة؟",
+ category:"فهم",
+ options:["جملة اسمية","جملة فعلية"],
+ correct:0,
+ wrong:[
+  "انتبه إلى بداية الجملة، لا إلى وجود الفعل فيها فقط. بدأت بكلمة «الْعُصْفُورُ»، وهي اسم."
+ ],
+ success:"ممتاز! مع أن في الجملة فعلًا هو «يُغَرِّدُ»، إلّا أنَّها بدأت باسم؛ لذلك هي جملة اسمية."
+},
+{
+ sentence:"يَلْعَبُ الْأَطْفَالُ فِي الْحَدِيقَةِ.",
+ prompt:"ما الكلمة التي ساعدتك على معرفة أن الجملة فعلية؟",
+ category:"فهم",
+ options:["يَلْعَبُ","الْأَطْفَالُ","الْحَدِيقَةِ"],
+ correct:0,
+ wrong:[
+  "«الْأَطْفَالُ» اسم، لكنه ليس بداية الجملة. ابحث عن الكلمة الأولى التي تدل على حدث.",
+  "«الْحَدِيقَةِ» اسم جاء في آخر الجملة، ولا نحدد نوع الجملة به."
+ ],
+ success:"أحسنت! بدأت الجملة بـ«يَلْعَبُ»، وهو فعل؛ لذلك عرفت أنها جملة فعلية."
+},
+{
+ sentence:"الْمَدْرَسَةُ جَمِيلَةٌ.",
+ prompt:"ما الكلمة التي بدأت بها الجملة؟ وما نوعها؟",
+ category:"اسمية",
+ options:["الْمَدْرَسَةُ — اسم","جَمِيلَةٌ — اسم","الْمَدْرَسَةُ — فعل"],
+ correct:0,
+ wrong:[
+  "«جَمِيلَةٌ» اسم، لكنها ليست الكلمة التي بدأت بها الجملة. عد إلى أول كلمة.",
+  "«الْمَدْرَسَةُ» لا تدل على حدث وزمن؛ فهي اسم وليست فعلًا."
+ ],
+ success:"صحيح! بدأت الجملة بـ«الْمَدْرَسَةُ»، وهي اسم؛ لذلك الجملة اسمية."
+},
+{
+ sentence:"فَازَ فَرِيقُنَا بِالْمُبَارَاةِ.",
+ prompt:"لماذا هذه جملة فعلية؟",
+ category:"فعلية",
+ options:["لأنها بدأت بفعل","لأن فيها اسمًا","لأنها طويلة"],
+ correct:0,
+ wrong:[
+  "وجود اسم في الجملة أمر طبيعي، لكنه لا يحدد وحده نوعها. راقب الكلمة الأولى.",
+  "طول الجملة لا علاقة له بكونها اسمية أو فعلية."
+ ],
+ success:"أحسنت! بدأت الجملة بالفعل «فَازَ»، لذلك هي جملة فعلية."
+},
+{
+ sentence:"مُحَمَّدٌ يَكْتُبُ دَرْسَهُ.",
+ prompt:"هل وجود الفعل «يَكْتُبُ» يجعل الجملة فعلية؟",
+ category:"فهم",
+ options:["نعم، لأنها تحتوي على فعل","لا، لأنها بدأت باسم"],
+ correct:1,
+ wrong:[
+  "وجود فعل داخل الجملة لا يكفي. ننظر إلى الكلمة التي بدأت بها الجملة، وهي «مُحَمَّدٌ»."
+ ],
+ success:"رائع! بدأت الجملة باسم «مُحَمَّدٌ»، لذلك هي جملة اسمية رغم وجود الفعل «يَكْتُبُ»."
+},
+{
+ sentence:"يَجْتَهِدُ الطَّالِبُ، وَالنَّجَاحُ ثَمَرَةُ اجْتِهَادِهِ.",
+ prompt:"صنّف الجملتين بالترتيب.",
+ category:"فهم",
+ options:["اسمية ثم فعلية","فعلية ثم اسمية","فعلية ثم فعلية"],
+ correct:1,
+ wrong:[
+  "الجملة الأولى بدأت بـ«يَجْتَهِدُ»، وهو فعل، فابدأ من هذه الملاحظة.",
+  "الجملة الثانية بدأت بـ«النَّجَاحُ»، وهو اسم، وليست فعلية."
+ ],
+ success:"ممتاز! «يَجْتَهِدُ الطَّالِبُ» جملة فعلية، و«النَّجَاحُ ثَمَرَةُ اجْتِهَادِهِ» جملة اسمية."
+}
+];
+
+let current=0, score=0, firstTry=true, locked=false;
+let stats={اسمية:{total:0,ok:0},فعلية:{total:0,ok:0},فهم:{total:0,ok:0}};
+questions.forEach(q=>stats[q.category].total++);
+
+function startQuiz(){
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  loadQuestion();
+}
+function loadQuestion(){
+  firstTry=true; locked=false;
+  const q=questions[current];
+  document.getElementById("qnum").textContent=`التحدي ${current+1} من ${questions.length}`;
+  document.getElementById("scoreLive").textContent=`العلامة: ${score}`;
+  document.getElementById("progress").style.width=`${(current/questions.length)*100}%`;
+  document.getElementById("sentence").textContent=q.sentence;
+  document.getElementById("prompt").textContent=q.prompt;
+  document.getElementById("feedback").className="feedback";
+  document.getElementById("feedback").innerHTML="";
+  document.getElementById("nextBtn").classList.add("hidden");
+  const box=document.getElementById("options"); box.innerHTML="";
+  q.options.forEach((txt,i)=>{
+    const b=document.createElement("button");
+    b.className="opt"; b.textContent=txt;
+    b.onclick=()=>answer(i,b);
+    box.appendChild(b);
+  });
+}
+function answer(i,btn){
+  if(locked) return;
+  const q=questions[current];
+  const fb=document.getElementById("feedback");
+  if(i===q.correct){
+    btn.classList.add("good");
+    if(firstTry){
+      score++;
+      stats[q.category].ok++;
+    }
+    locked=true;
+    [...document.querySelectorAll(".opt")].forEach(x=>x.disabled=true);
+    fb.className="feedback good";
+    fb.innerHTML="✅ "+q.success;
+    document.getElementById("scoreLive").textContent=`العلامة: ${score}`;
+    document.getElementById("nextBtn").classList.remove("hidden");
+  } else {
+    btn.classList.add("bad");
+    btn.disabled=true;
+    let wrongIndex=[...document.querySelectorAll(".opt")].filter((_,idx)=>idx!==q.correct).indexOf(btn);
+    let msg=q.wrong[Math.max(0,wrongIndex)] || "حاول مرة أخرى، وركز على بداية الجملة.";
+    fb.className="feedback bad";
+    fb.innerHTML=`❌ ${msg}<br><span class="hint">تلميح: راقب بداية الجملة جيدًا.</span>`;
+    firstTry=false;
+  }
+}
+function nextQuestion(){
+  current++;
+  if(current<questions.length) loadQuestion();
+  else showResult();
+}
+function showResult(){
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+  document.getElementById("finalScore").textContent=`${score}/10`;
+  let text = score>=9 ? "أداء ممتاز! فهمك للجملة الاسمية والفعلية واضح."
+           : score>=7 ? "أداء جيد جدًا. راجع الأسئلة التي احتجت فيها إلى محاولة ثانية."
+           : score>=5 ? "بداية جيدة. ركّز أكثر على الكلمة التي تبدأ بها الجملة."
+           : "تحتاج إلى مزيد من التدريب على التمييز بين بداية الجملة بالاسم وبدايتها بالفعل.";
+  document.getElementById("summary").textContent=text;
+  const labels={اسمية:"تمييز الجملة الاسمية",فعلية:"تمييز الجملة الفعلية",فهم:"فهم سبب التصنيف"};
+  const bars=document.getElementById("bars"); bars.innerHTML="";
+  Object.keys(stats).forEach(k=>{
+    const s=stats[k], pct=Math.round((s.ok/s.total)*100);
+    const div=document.createElement("div");
+    div.className="metric";
+    div.innerHTML=`<strong><span>${labels[k]}</span><span>${s.ok}/${s.total}</span></strong>
+                   <div class="barbg"><div class="bar" style="width:${pct}%"></div></div>`;
+    bars.appendChild(div);
+  });
+}
+function restartQuiz(){
+  current=0; score=0;
+  stats={اسمية:{total:0,ok:0},فعلية:{total:0,ok:0},فهم:{total:0,ok:0}};
+  questions.forEach(q=>stats[q.category].total++);
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("start").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
