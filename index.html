@@ -1,25 +1,61 @@
-<!doctype html><html lang="ar" dir="rtl"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101923">
-<link rel="manifest" href="manifest.webmanifest">
 <title>رحلتنا نحو تعلم اللغة العربية</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(160deg,#101923,#172635);color:#f5f7fa;min-height:100vh}
-main{max-width:720px;margin:auto;padding:28px 18px}.logo{width:92px;height:92px;border-radius:24px;display:block;margin:10px auto 18px}
-h1{text-align:center;font-size:30px;line-height:1.6;margin:0}.teacher{text-align:center;color:#d8bd76;font-size:19px;margin:6px 0 30px}
-.intro{text-align:center;color:#c9d4de;line-height:1.8}.grid{display:grid;gap:16px;margin-top:28px}
-.card{display:block;text-decoration:none;color:white;background:#1d2c3a;border:1px solid #344b5f;border-radius:20px;padding:22px;box-shadow:0 12px 25px #0004}
-.card b{display:block;font-size:22px;margin-bottom:8px}.card span{color:#bdcad5;line-height:1.7}.ready{border-color:#2fa86e}.soon{opacity:.65}
-footer{text-align:center;color:#8495a4;margin-top:35px;font-size:13px}
-</style></head><body><main>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(160deg,#0f1822,#172735);color:#f7f9fb;min-height:100vh}
+main{max-width:720px;margin:auto;padding:28px 18px 36px}
+.logo{width:96px;height:96px;border-radius:26px;display:block;margin:8px auto 18px;box-shadow:0 10px 28px #0006}
+h1{text-align:center;font-size:31px;line-height:1.55;margin:0 0 10px}
+.teacher-wrap{text-align:center;margin:8px 0 26px}
+.teacher-label{display:inline-block;background:#213242;border:1px solid #d8bd76;border-radius:18px;padding:10px 22px;box-shadow:0 8px 20px #0004}
+.teacher-label span{display:block;font-size:14px;color:#cbd5df;margin-bottom:4px}
+.teacher-label strong{display:block;font-size:28px;color:#f0cf78;letter-spacing:.2px}
+.intro{text-align:center;color:#c7d2dc;line-height:1.9;font-size:17px;margin:0 auto 28px;max-width:620px}
+.grid{display:grid;gap:16px}
+.card{display:block;text-decoration:none;color:white;background:#1d2c3a;border:1px solid #344b5f;border-radius:22px;padding:22px;box-shadow:0 12px 25px #0004}
+.card b{display:block;font-size:23px;margin-bottom:9px}
+.card span{color:#c1ccd6;line-height:1.8;font-size:16px}
+.ready{border-color:#31ab70;box-shadow:0 0 0 1px #31ab7033,0 12px 25px #0004}
+.ready .tag{display:inline-block;margin-top:14px;background:#1b5a3c;border:1px solid #31ab70;color:#dff7e9;border-radius:999px;padding:6px 12px;font-size:13px}
+.soon{opacity:.72}
+.soon .tag{display:inline-block;margin-top:14px;background:#273746;border:1px solid #52697c;color:#c7d2dc;border-radius:999px;padding:6px 12px;font-size:13px}
+footer{text-align:center;color:#8ea0af;margin-top:34px;font-size:13px}
+</style>
+</head>
+<body>
+<main>
 <img src="icon-192.png" class="logo" alt="">
-<h1>رحلتنا نحو تعلم اللغة العربية</h1><div class="teacher">المعلم موسى علي</div>
-<p class="intro">تعلّم، جرّب، واكتشف اللغة العربية من خلال اختبارات تفاعلية قصيرة وممتعة.</p>
-<div class="grid">
-<a class="card ready" href="sentences.html"><b>🧩 الجملة الاسمية والفعلية</b><span>رحلة من 10 تحديات لاكتشاف نوع الجملة وفهم سبب تصنيفها.</span></a>
-<div class="card soon"><b>🔤 نوع الكلمة</b><span>الاسم والفعل والحرف — سيُضاف الاختبار إلى التطبيق في المرحلة التالية.</span></div>
+<h1>رحلتنا نحو تعلم اللغة العربية</h1>
+
+<div class="teacher-wrap">
+  <div class="teacher-label">
+    <span>إعداد</span>
+    <strong>المعلّم موسى علي</strong>
+  </div>
 </div>
-<footer>إعداد: المعلم موسى علي</footer>
-<script>
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js"))}
-</script></main></body></html>
+
+<p class="intro">تعلّم، جرّب، واكتشف اللغة العربية من خلال اختبارات تفاعلية قصيرة وممتعة.</p>
+
+<div class="grid">
+  <a class="card ready" href="word-type.html">
+    <b>🔤 اختبار نوع الكلمة</b>
+    <span>الاسم والفعل والحرف، مع التمييز بين الماضي والمضارع والأمر، في 10 تحديات تفاعلية.</span>
+    <div class="tag">متاح الآن ✓</div>
+  </a>
+
+  <div class="card soon">
+    <b>🧩 الجملة الاسمية والفعلية</b>
+    <span>سنضيف هذا الاختبار لاحقًا بعد مراجعته واعتماده.</span>
+    <div class="tag">قريبًا</div>
+  </div>
+</div>
+
+<footer>رحلتنا نحو تعلم اللغة العربية — المعلّم موسى علي</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>اختبار نوع الكلمة | المعلّم موسى علي</title>
+<style>
+:root{--bg:#0f1720;--card:#18222e;--card2:#202d3b;--text:#f5f7fa;--muted:#aeb9c5;--accent:#2ea36b;--gold:#d7b86a;--bad:#b84d4d;--border:#314153}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:radial-gradient(circle at top,#1b2937 0,#0f1720 55%);color:var(--text);min-height:100vh}
+.wrap{max-width:760px;margin:auto;padding:18px}
+.brand{text-align:center;color:#dce7ef;font-size:13px;margin:6px 0 4px}
+.teacher{text-align:center;margin:5px 0 18px}
+.teacher strong{display:inline-block;color:var(--gold);font-size:30px;padding:8px 18px;border:1px solid #6f6549;border-radius:16px;background:#19242f}
+.panel{background:rgba(24,34,46,.96);border:1px solid var(--border);border-radius:22px;padding:22px;box-shadow:0 14px 40px rgba(0,0,0,.25)}
+h1{font-size:34px;margin:8px 0 10px;text-align:center}
+h2{font-size:25px;margin:0 0 12px}
+p{line-height:1.9;color:#d7e0e8}
+.hero-icon{font-size:56px;text-align:center;margin-top:6px}
+.start-btn,.next-btn,.restart-btn,.home-btn{width:100%;border:none;border-radius:16px;padding:15px 18px;font-size:18px;font-weight:800;cursor:pointer;background:var(--accent);color:white;margin-top:16px}
+.home-btn{background:#2a3a4a;text-decoration:none;display:block;text-align:center}
+.progress-shell{height:12px;background:#253445;border-radius:20px;overflow:hidden;margin:10px 0 18px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#56c98f);transition:.3s}
+.meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px;margin-bottom:10px}
+.sentence{font-size:27px;line-height:1.9;text-align:center;padding:18px 14px;margin:10px 0 16px;background:var(--card2);border:1px solid var(--border);border-radius:18px}
+.target{color:#f0cf78;font-weight:800}
+.prompt{font-size:19px;font-weight:700;margin:8px 0 12px}
+.options{display:grid;gap:11px}
+.opt{width:100%;text-align:right;border:1px solid var(--border);background:#223141;color:var(--text);border-radius:15px;padding:14px 16px;font-size:17px;cursor:pointer}
+.opt.good{background:#183b2b;border-color:#2f9d67}
+.opt.bad{background:#442626;border-color:#b65353}
+.feedback{display:none;margin-top:14px;padding:14px 16px;border-radius:15px;line-height:1.8;font-size:16px}
+.feedback.good{display:block;background:#173526;border:1px solid #2b8c5d}
+.feedback.bad{display:block;background:#3b2424;border:1px solid #9c4949}
+.hint{color:#f1d58d;font-weight:700}
+.result{text-align:center}.score{font-size:54px;font-weight:900;color:var(--gold);margin:10px 0}
+.bars{display:grid;gap:14px;margin-top:20px;text-align:right}
+.metric{background:#202d3b;border-radius:14px;padding:12px 14px}
+.metric strong{display:flex;justify-content:space-between;margin-bottom:8px}
+.barbg{height:10px;background:#314153;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--accent)}
+.small{font-size:13px;color:var(--muted)}.footer{text-align:center;color:#8fa0b1;font-size:12px;margin:16px 0 4px}.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand">رحلتنا نحو تعلم اللغة العربية</div>
+<div class="teacher"><strong>المعلّم موسى علي</strong></div>
+
+<section id="start" class="panel">
+<div class="hero-icon">🔤</div>
+<h1>رحلة الكلمات</h1>
+<p style="text-align:center">اكتشف نوع الكلمة من خلال الأمثلة، وفكّر في معناها ووظيفتها داخل الجملة.</p>
+<p class="small" style="text-align:center">إذا أخطأت، ستحصل على تعليل وتلميح ثم يمكنك المحاولة مرة أخرى. تُحسب علامة السؤال على المحاولة الأولى فقط.</p>
+<button class="start-btn" onclick="startQuiz()">ابدأ الرحلة 🚀</button>
+<a class="home-btn" href="index.html">العودة إلى الصفحة الرئيسية</a>
+</section>
+
+<section id="quiz" class="panel hidden">
+<div class="meta"><span id="qnum">التحدي 1 من 10</span><span id="scoreLive">العلامة: 0</span></div>
+<div class="progress-shell"><div id="progress" class="progress"></div></div>
+<h2>اكتشف نوع الكلمة</h2>
+<div id="sentence" class="sentence"></div>
+<div id="prompt" class="prompt"></div>
+<div id="options" class="options"></div>
+<div id="feedback" class="feedback"></div>
+<button id="nextBtn" class="next-btn hidden" onclick="nextQuestion()">التالي ←</button>
+</section>
+
+<section id="result" class="panel hidden result">
+<div class="hero-icon">🏆</div>
+<h1>انتهت الرحلة!</h1>
+<div id="finalScore" class="score">0/10</div>
+<p id="summary"></p>
+<div id="bars" class="bars"></div>
+<button class="restart-btn" onclick="restartQuiz()">إعادة الرحلة 🔄</button>
+<a class="home-btn" href="index.html">العودة إلى الصفحة الرئيسية</a>
+</section>
+<div class="footer">إعداد: المعلّم موسى علي</div>
+</div>
+
+<script>
+const questions=[
+{
+sentence:'الْقُرْآنُ الْكَرِيمُ كِتَابُ اللَّهِ.',target:'الْقُرْآنُ',category:'اسم',
+prompt:'ما نوع كلمة «الْقُرْآنُ»؟',
+options:['اسم: شخص أو حيوان أو نبات أو جماد أو معنى','فعل: حدث وزمن','حرف: يظهر معناه مع غيره'],
+correct:0,
+wrong:[
+'«الْقُرْآنُ» لا يدل على حدث مرتبط بزمن؛ لذلك ليس فعلًا. لاحظ أيضًا دخول «الـ» عليه، وهي من علامات الاسم.',
+'هذه صفة الحرف، أمّا «الْقُرْآنُ» فاسم، ومن علاماته هنا دخول «الـ» عليه.'
+],
+success:'أحسنت! «الْقُرْآنُ» اسم، ومن علامات الاسم هنا دخول «الـ» عليه.'
+},
+{
+sentence:'هُوَ يُحِبُّ الْقِرَاءَةَ.',target:'هُوَ',category:'اسم',
+prompt:'ما نوع كلمة «هُوَ»؟',
+options:['اسم','فعل','حرف'],
+correct:0,
+wrong:[
+'«هُوَ» لا يدل على حدث وزمن، فهو ليس فعلًا. إنه ضمير يعود على شخص.',
+'«هُوَ» ليس حرفًا؛ لأنه يدل على شخص نتحدث عنه. الضمير من الأسماء.'
+],
+success:'صحيح! «هُوَ» ضمير، والضمير من الأسماء.'
+},
+{
+sentence:'عَلِيٌّ مَاهِرٌ فِي لَعِبِ كُرَةِ الْقَدَمِ.',target:'عَلِيٌّ',category:'اسم',
+prompt:'ما نوع كلمة «عَلِيٌّ»؟',
+options:['اسم','فعل','حرف'],
+correct:0,
+wrong:[
+'«عَلِيٌّ» اسم شخص، ولا يدل على حدث وزمن؛ لذلك ليس فعلًا.',
+'«عَلِيٌّ» ليس حرفًا؛ فهو اسم علم يدل على شخص.'
+],
+success:'أحسنت! «عَلِيٌّ» اسم علم يدل على شخص.'
+},
+{
+sentence:'الصِّدْقُ فَضِيلَةٌ.',target:'الصِّدْقُ',category:'اسم',
+prompt:'ما نوع كلمة «الصِّدْقُ»؟',
+options:['اسم','فعل','حرف'],
+correct:0,
+wrong:[
+'«الصِّدْقُ» لا يدل على حدث وزمن، وإنما يدل على معنى؛ لذلك هو اسم.',
+'الحرف يظهر معناه مع غيره، أمّا «الصِّدْقُ» فيدل على معنى مستقل، فهو اسم.'
+],
+success:'رائع! «الصِّدْقُ» اسم؛ لأنه يدل على معنى.'
+},
+{
+sentence:'يَقْرَأُ الطَّالِبُ الْقِصَّةَ.',target:'يَقْرَأُ',category:'فعل',
+prompt:'ما نوع كلمة «يَقْرَأُ»؟',
+options:['اسم','فعل مضارع','حرف'],
+correct:1,
+wrong:[
+'«يَقْرَأُ» لا يدل على شخص أو شيء أو معنى، بل يدل على حدث يحصل في الوقت الحالي.',
+'«يَقْرَأُ» ليس حرفًا؛ فهو يدل على حدث وزمن.'
+],
+success:'أحسنت! «يَقْرَأُ» فعل مضارع؛ فهو يدل على حدث يحصل في الوقت الحالي، والمضارع قد يدل على الحاضر أو المستقبل.'
+},
+{
+sentence:'كَتَبَ الْمُعَلِّمُ عَلَى السَّبُّورَةِ.',target:'كَتَبَ',category:'فعل',
+prompt:'ما نوع كلمة «كَتَبَ»؟',
+options:['اسم','فعل ماضٍ','حرف'],
+correct:1,
+wrong:[
+'«كَتَبَ» لا يدل على اسم شخص أو شيء، بل يدل على حدث وقع وانتهى.',
+'«كَتَبَ» ليس حرفًا؛ فهو يدل على حدث وقع في الزمن الماضي.'
+],
+success:'صحيح! «كَتَبَ» فعل ماضٍ؛ لأنه يدل على حدث وقع في الزمن الماضي.'
+},
+{
+sentence:'انْسَخِ الدَّرْسَ.',target:'انْسَخِ',category:'فعل',
+prompt:'ما نوع كلمة «انْسَخِ»؟',
+options:['اسم','فعل أمر','حرف'],
+correct:1,
+wrong:[
+'«انْسَخِ» لا يدل على اسم شيء، بل يطلب من المخاطَب القيام بحدث.',
+'«انْسَخِ» ليس حرفًا؛ فهو يطلب القيام بفعل.'
+],
+success:'أحسنت! «انْسَخِ» فعل أمر؛ لأنه يطلب من المخاطَب القيام بحدث.'
+},
+{
+sentence:'ذَهَبْتُ إِلَى الْعَقَبَةِ.',target:'إِلَى',category:'حرف',
+prompt:'ما نوع كلمة «إِلَى»؟',
+options:['اسم','فعل','حرف'],
+correct:2,
+wrong:[
+'«إِلَى» لا تدل على شخص أو شيء أو معنى مستقل، وإنما يظهر معناها مع غيرها.',
+'«إِلَى» لا تدل على حدث وزمن؛ لذلك ليست فعلًا.'
+],
+success:'صحيح! «إِلَى» حرف، ويظهر معناه مع غيره في الجملة.'
+},
+{
+sentence:'فَازَ مُحَمَّدٌ وَعُمَرٌ فِي الْمُسَابَقَةِ.',target:'وَ',category:'حرف',
+prompt:'ما نوع الواو في «وَعُمَرٌ»؟',
+options:['اسم','فعل','حرف عطف'],
+correct:2,
+wrong:[
+'الواو هنا لا تدل على شخص أو شيء؛ فهي ليست اسمًا.',
+'الواو لا تدل على حدث وزمن؛ لذلك ليست فعلًا.'
+],
+success:'أحسنت! الواو هنا حرف عطف يربط بين «مُحَمَّدٌ» و«عُمَرٌ».'
+},
+{
+sentence:'لَنْ أُهْمِلَ دُرُوسِي.',target:'لَنْ',category:'حرف',
+prompt:'ما نوع كلمة «لَنْ»؟',
+options:['اسم','فعل','حرف'],
+correct:2,
+wrong:[
+'«لَنْ» لا تدل على شخص أو شيء أو معنى مستقل، فهي ليست اسمًا.',
+'«لَنْ» لا تدل على حدث وزمن، بل تدخل على الفعل المضارع؛ فهي حرف.'
+],
+success:'صحيح! «لَنْ» حرف، ويظهر معناها مع الفعل الذي يأتي بعدها.'
+}
+];
+
+let current=0,score=0,firstTry=true,locked=false;
+let stats={اسم:{total:0,ok:0},فعل:{total:0,ok:0},حرف:{total:0,ok:0}};
+questions.forEach(q=>stats[q.category].total++);
+
+function startQuiz(){document.getElementById('start').classList.add('hidden');document.getElementById('quiz').classList.remove('hidden');loadQuestion()}
+function loadQuestion(){
+ firstTry=true;locked=false;
+ const q=questions[current];
+ document.getElementById('qnum').textContent=`التحدي ${current+1} من ${questions.length}`;
+ document.getElementById('scoreLive').textContent=`العلامة: ${score}`;
+ document.getElementById('progress').style.width=`${(current/questions.length)*100}%`;
+ document.getElementById('sentence').innerHTML=q.sentence.replace(q.target,`<span class="target">${q.target}</span>`);
+ document.getElementById('prompt').textContent=q.prompt;
+ const fb=document.getElementById('feedback');fb.className='feedback';fb.innerHTML='';
+ document.getElementById('nextBtn').classList.add('hidden');
+ const box=document.getElementById('options');box.innerHTML='';
+ q.options.forEach((txt,i)=>{const b=document.createElement('button');b.className='opt';b.textContent=txt;b.onclick=()=>answer(i,b);box.appendChild(b)})
+}
+function answer(i,btn){
+ if(locked)return;
+ const q=questions[current],fb=document.getElementById('feedback');
+ if(i===q.correct){
+   btn.classList.add('good');
+   if(firstTry){score++;stats[q.category].ok++}
+   locked=true;document.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+   fb.className='feedback good';fb.innerHTML='✅ '+q.success;
+   document.getElementById('scoreLive').textContent=`العلامة: ${score}`;
+   document.getElementById('nextBtn').classList.remove('hidden');
+ }else{
+   btn.classList.add('bad');btn.disabled=true;
+   const wrongOptions=q.options.map((_,idx)=>idx).filter(idx=>idx!==q.correct);
+   const pos=wrongOptions.indexOf(i);
+   fb.className='feedback bad';
+   fb.innerHTML='❌ '+(q.wrong[pos]||'حاول مرة أخرى.')+'<br><span class="hint">تلميح: فكّر في معنى الكلمة وما الذي تدل عليه.</span>';
+   firstTry=false;
+ }
+}
+function nextQuestion(){current++;if(current<questions.length)loadQuestion();else showResult()}
+function showResult(){
+ document.getElementById('quiz').classList.add('hidden');document.getElementById('result').classList.remove('hidden');
+ document.getElementById('finalScore').textContent=`${score}/10`;
+ document.getElementById('summary').textContent=score>=9?'أداء ممتاز!':score>=7?'أداء جيد جدًا.':score>=5?'بداية جيدة، وتحتاج إلى مراجعة بعض المفاهيم.':'تحتاج إلى مزيد من التدريب على الاسم والفعل والحرف.';
+ const labels={اسم:'الاسم',فعل:'الفعل وأنواعه',حرف:'الحرف'};const bars=document.getElementById('bars');bars.innerHTML='';
+ Object.keys(stats).forEach(k=>{const s=stats[k],pct=Math.round((s.ok/s.total)*100);const div=document.createElement('div');div.className='metric';div.innerHTML=`<strong><span>${labels[k]}</span><span>${s.ok}/${s.total}</span></strong><div class="barbg"><div class="bar" style="width:${pct}%"></div></div>`;bars.appendChild(div)})
+}
+function restartQuiz(){current=0;score=0;stats={اسم:{total:0,ok:0},فعل:{total:0,ok:0},حرف:{total:0,ok:0}};questions.forEach(q=>stats[q.category].total++);document.getElementById('result').classList.add('hidden');document.getElementById('start').classList.remove('hidden')}
+</script>
+</body>
+</html>
